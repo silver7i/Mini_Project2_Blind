@@ -2,12 +2,14 @@
 <html lang=ko>
 
 <head>
+
+
     <style>
 		#canvas { border: 0px solid; }
         body { padding: 25px;  font: 12px "Lucida Grande", Helvetica, Arial, sans-serif; }
         iframe { overflow: hidden; }
         #title { font-weight: bold;  font-size: 12.5px; }
-        a { color: #00B7FF; }
+        a { color: #00B7FF; }	
     </style>
 	<title>Communicate with Arduino</title>
 	
@@ -18,12 +20,68 @@
 	<h1 style="text-align:center;">Advanced Blind</h1>
 	
 	<h3 id="clock"></h3>
-	<div>
-		<p><input type="time" id="cl"></p>
-		<p><button onclick="timeSet()">입력</button></p>
-		
-		<p id="demo"></p>
-	</div>
+	<table border="1">
+		<tr height="40">
+			<td rowspan="3" width="110">	
+				<center><form>
+					<p><input type="time" id="cl"></p>
+					<p><input type="submit" id="OK" value="입력"></p>
+				</form></center>
+			</td>
+			<td width="300">
+				 <!-- {%if(input data)%} -->
+					<table border="0" width="290" style = "float:right;">
+						<tr>
+							<td style="text-align:center;" width="180" id="">00:00</td>
+							<td style="text-align:center;" width="120" id="">
+								<input type="checkbox">
+							</td>
+							<td style="text-align:center;" width="80">
+							<button>삭제</button>
+							</td>
+						</tr>
+					</table>
+				<!-- else -->
+					
+			</td>
+		</tr>
+		<tr height="40">
+			<td>
+				<!-- {%if(input data)%} -->
+					<table border="0" width="290" style = "float:right;">
+						<tr>
+							<td style="text-align:center;" width="180" id="">00:00</td>
+							<td style="text-align:center;" width="120" id="">
+								<input type="checkbox">
+							</td>
+							<td style="text-align:center;" width="80">
+							<button>삭제</button>
+							</td>
+						</tr>
+					</table>
+				<!-- else -->
+			</td>
+		</tr>
+		<tr height="40">
+			<td>
+				<!-- {%if(input data)%} -->
+					<table border="0" width="290" style = "float:right;">
+						<tr>
+							<td style="text-align:center;" width="180" id="">00:00</td>
+							<td style="text-align:center;" width="120" id="">
+								<input type="checkbox">
+							</td>
+							<td style="text-align:center;" width="80">
+							<button>삭제</button>
+							</td>
+						</tr>
+					</table>
+				<!-- else -->
+			</td>
+		</tr>
+	</table>
+	
+	
 	<p>&nbsp;</p>
 	
 	<div>
@@ -143,11 +201,30 @@
 		
 	});
 	
-	function timeSet() {
-		var x = document.getElementById("cl").value;
-		document.getElementById("demo").innerHTML = x;
-	}
+//	function timeSet() {
+//		var x = document.getElementById("cl").value;
+//		document.getElementById("demo").innerHTML = x;
+//	};
 	
+	$("#OK").click(function(){
+		$.ajax({
+			url: '/postTest',
+			async: true,
+			type: 'POST',
+			data: {
+				test: $("#cl").val()
+			},
+			dataType: 'json',
+			success: function(data){
+				alert("보내기 성공");
+			},
+			error: function(err) {
+				elert("보내기 실패" + err);
+			}
+		});
+	});
+
+
 	var clockTarget = document.getElementById("clock");
 
 
