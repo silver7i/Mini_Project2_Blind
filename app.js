@@ -116,10 +116,28 @@ parser.on('data', function(data)
 
 		io.emit('adc', adcValue);
 
-		console.log('adc value: ' + adcValue);
+//		console.log('adc value: ' + adcValue);
 
 	}
 
+});
+
+app.get('/timer',function(req,res)
+
+{
+
+	if (err) {
+
+		return console.log('Error on write: ', err.message);
+
+	}
+
+	console.log('send: Timer set');
+
+	res.writeHead(200, {'Content-Type': 'text/plain'});
+
+	res.end('Timer Set\n');
+	
 });
 
 
