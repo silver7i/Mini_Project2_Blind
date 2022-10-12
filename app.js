@@ -70,15 +70,25 @@ parser.on('data', function(data)
 
 	console.log(data.toString());
 
-	if(data.substring(0,3) == "led"){
+	if(data.substring(0,5) == "servo"){
 
-		if(data.substring(3,4) == "1")	ledStatus = "on";
+		if(data.substring(5,6) == "0")	servoStatus = "0";
 
-		else							ledStatus = "off";
+		else if(data.substring(5,7) == "30")	servoStatus = "30";
+		
+		else if(data.substring(5,7) == "60")	servoStatus = "60";
+		
+		else if(data.substring(5,7) == "90")	servoStatus = "90";
+		
+		else if(data.substring(5,8) == "120")	servoStatus = "120";
+		
+		else if(data.substring(5,8) == "150")	servoStatus = "150";
 
-		io.emit('led', ledStatus);
+		else if(data.substring(5,8) == "180")	servoStatus = "180";
+		else
+		io.emit('servo', servoStatus);
 
-		console.log('led status: ' + ledStatus);
+		console.log('servo status: ' + servoStatus);
 
 	}
 
@@ -96,11 +106,11 @@ parser.on('data', function(data)
 
  
 
-app.get('/led_on',function(req,res)
+app.get('/servo0',function(req,res)
 
 {
 
-	sp.write('led1\n\r', function(err){
+	sp.write('0\n\r', function(err){
 
 		if (err) {
 
@@ -108,23 +118,22 @@ app.get('/led_on',function(req,res)
 
         }
 
-        console.log('send: led on');
+        console.log('send: servo0');
 
 		res.writeHead(200, {'Content-Type': 'text/plain'});
 
-		res.end('LED ON\n');
+		res.end('Servo 0\n');
+		
 
 	});
 
 });
 
- 
-
-app.get('/led_off',function(req,res)
+app.get('/servo30',function(req,res)
 
 {
 
-	sp.write('led0\n\r', function(err){
+	sp.write('1\n\r', function(err){
 
 		if (err) {
 
@@ -132,13 +141,124 @@ app.get('/led_off',function(req,res)
 
         }
 
-        console.log('send: led off');
+        console.log('send: servo30');
 
 		res.writeHead(200, {'Content-Type': 'text/plain'});
 
-		res.end('LED OFF\n');
+		res.end('Servo 30\n');
+
+	});
+
+});
+
+
+app.get('/servo60',function(req,res)
+
+{
+
+	sp.write('2\n\r', function(err){
+
+		if (err) {
+
+            return console.log('Error on write: ', err.message);
+
+        }
+
+        console.log('send: servo60');
+
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+
+		res.end('Servo 60\n');
 
 	}); 
+
+});
+
+app.get('/servo90',function(req,res)
+
+{
+
+	sp.write('3\n\r', function(err){
+
+		if (err) {
+
+            return console.log('Error on write: ', err.message);
+
+        }
+
+        console.log('send: servo90');
+
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+
+		res.end('Servo 90\n');
+
+	}); 
+
+});
+
+app.get('/servo120',function(req,res)
+
+{
+
+	sp.write('4\n\r', function(err){
+
+		if (err) {
+
+            return console.log('Error on write: ', err.message);
+
+        }
+
+        console.log('send: servol20');
+
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+
+		res.end('Servo 120\n');
+
+	}); 
+
+});
+
+app.get('/servo150',function(req,res)
+
+{
+
+	sp.write('5\n\r', function(err){
+
+		if (err) {
+
+            return console.log('Error on write: ', err.message);
+
+        }
+
+        console.log('send: servo150');
+
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+
+		res.end('Servo 150\n');
+
+	}); 
+
+});
+
+app.get('/servo180',function(req,res)
+
+{
+
+	sp.write('6\n\r', function(err){
+
+		if (err) {
+
+            return console.log('Error on write: ', err.message);
+
+        }
+
+        console.log('send: servo180');
+
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+
+		res.end('Servo 180\n');
+
+	});
 
 });
 

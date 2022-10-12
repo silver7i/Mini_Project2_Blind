@@ -47,24 +47,39 @@
 		습도?	<input>
 	</div>
 	&nbsp;
-<div>
-<button>0</button>
-<button>30</button>
-<button>60</button>
-<button>90</button>
-<button>120</button>
-<button>150</button>
-<button>180</button>
-</div>
-<div style = "float:right;">
-<button>△</button>
-</div>
-<p style = "clear:both;"></p>
+	
+		
+		<a id="servo0" href="/servo0" target="iframe">
+			<button>0</button>
+		</a>
+		<a id="servo30" href="/servo30" target="iframe">
+			<button>30</button>
+		</a>
+		<a id="servo60" href="/servo60" target="iframe">
+			<button>60</button>
+		</a>
+		<a id="servo90" href="/servo90" target="iframe">
+			<button>90</button>
+		</a>
+		<a id="servo120" href="/servo120" target="iframe">
+			<button>120</button>
+		</a>
+		<a id="servo150" href="/servo150" target="iframe">
+			<button>150</button>
+		</a>
+		<a id="servo180" href="/servo180" target="iframe">
+			<button>180</button>
+		</a>
 
-<div style = "float:right;">
-<button>▽</button>
-</div>
-<p style = "clear:both;">&nbsp;</p>
+	<div style = "float:right;">
+		<button>△</button>
+	</div>
+	<p style = "clear:both;"></p>
+
+	<div style = "float:right;">
+		<button>▽</button>
+	</div>
+	<p style = "clear:both;">&nbsp;</p>
 
 
 	<table border="0" background="https://img.hankyung.com/photo/202201/01.28639317.1.jpg">
@@ -86,18 +101,14 @@
 	{
 		$(function()
         {
-            var val    = 0;
+                var val    = 0;
             var oldval = 0;
             
 			var socket = io();
 				
-			socket.on('led', function( ledStatus ){
-				$('#led').text(ledStatus);
-				console.log(ledStatus);
-				if(ledStatus=='on')
-					$('#imgLed').attr('src', "images/on.gif");
-				else
-					$('#imgLed').attr('src', "images/off.gif");
+			socket.on('servo', function( servoStatus ){
+				$('#servo').text(servoStatus);
+				console.log(servoStatus);
 			});
             
 			socket.on('adc', function( adcValue ){
@@ -105,7 +116,11 @@
 				
 				oldval = val;
 				// val = parseInt(adcValue);
-				val = parseInt(adcValue)/6;
+				val = parseInt(adcValue);
+				
+						
+				
+			});
 				
 				var canvas = document.getElementById('canvas');
 						
