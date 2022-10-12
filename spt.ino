@@ -2,7 +2,7 @@
 
 int servo = 9;
 int flag = 1; // 블라인드의 상태
-char mode = 'b'; // 모드 설정
+char mode = 'a'; // 모드 설정
 char ch;
 
 int pos = 0;
@@ -49,18 +49,21 @@ void loop() {
     
     ch = 0;
     blind.write(pos);
-    Serial.print("servo");
-    Serial.println(pos); 
+//    Serial.print("servo");
+//    Serial.println(pos); 
   
     delay(100);
   }
+  int adc = pos;
+     Serial.print("adc");
+     Serial.println(adc); 
 }
 
 
 void autoControl(){
   int cdsVal = analogRead(A0);
-  Serial.print("cds");
-  Serial.println(cdsVal);
+//  Serial.print("cds");
+//  Serial.println(cdsVal);
   
   //빛이 밝아지면
   if (cdsVal < 400) {
@@ -68,8 +71,8 @@ void autoControl(){
       blind.write(180);   //블라인드를 내림
       flag = 1;           //블라인드가 내려가 있는 상태로 설정
       pos = 180;
-      Serial.print("flag");
-      Serial.println(flag);
+//      Serial.print("servo");
+//      Serial.println(pos);
     }
   }
 
@@ -79,8 +82,8 @@ void autoControl(){
       blind.write(0);     //블라인드를 올림
       flag = 0;           //블라인드가 올라가 있는 상태로 설정
       pos = 0;
-      Serial.print("flag");
-      Serial.println(flag);
+//      Serial.print("servo");
+//      Serial.println(pos);
     }
   }
 

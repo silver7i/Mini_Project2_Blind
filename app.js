@@ -88,10 +88,28 @@ parser.on('data', function(data)
 		else
 		io.emit('servo', servoStatus);
 
-		console.log('servo status: ' + servoStatus);
+	}
+	
+	else if(data.substring(0,5) == "servo"){
+
+		servoStatus = data.substring(5);
+
+		io.emit('servo', servoStatus);
+
+		console.log('servoStatus: ' + servoStatus);
 
 	}
+	
+	else if(data.substring(0,4) == "mode"){
 
+		if(data.substring(4,5) == "a")	modeStatus = "auto";
+		else if(data.substring(4,5) == "b")	modeStatus = "manual";
+		io.emit('mode', modeStatus);
+
+		console.log('mode Status: ' + modeStatus);
+
+	}
+	
 	else if(data.substring(0,3) == "adc"){
 
 		adcValue = data.substring(3);
@@ -104,7 +122,98 @@ parser.on('data', function(data)
 
 });
 
- 
+
+app.get('/a',function(req,res)
+
+{
+
+	sp.write('a\n\r', function(err){
+
+		if (err) {
+
+            return console.log('Error on write: ', err.message);
+
+        }
+
+        console.log('send: auto');
+
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+
+		res.end('auto\n');
+		
+
+	});
+
+});
+
+app.get('/b',function(req,res)
+
+{
+
+	sp.write('b\n\r', function(err){
+
+		if (err) {
+
+            return console.log('Error on write: ', err.message);
+
+        }
+
+        console.log('send: manual');
+
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+
+		res.end('manual\n');
+		
+
+	});
+
+});
+
+app.get('/up',function(req,res)
+
+{
+
+	sp.write('.\n\r', function(err){
+
+		if (err) {
+
+            return console.log('Error on write: ', err.message);
+
+        }
+
+        console.log('send: up');
+
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+
+		res.end('up\n');
+		
+
+	});
+
+});
+
+app.get('/down',function(req,res)
+
+{
+
+	sp.write(',\n\r', function(err){
+
+		if (err) {
+
+            return console.log('Error on write: ', err.message);
+
+        }
+
+        console.log('send: down');
+
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+
+		res.end('down\n');
+		
+
+	});
+
+});
 
 app.get('/servo0',function(req,res)
 

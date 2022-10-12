@@ -15,28 +15,19 @@
 </head>
 
 <body>
-<!-- <table border="0">
-        <tr><td colspan="2" id="title">Communicate with Arduino</td></tr>
-        <tr>
-            <td rowspan="4" width="70"> &nbsp; <img id="imgLed" src="images/off.gif"></td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-			<td><a id="ledOn" href="/led_on" target="iframe">Turn On LED</a></td>
-        </tr>
-        <tr>
-			<td><a id="ledOff" href="/led_off" target="iframe">Turn Off LED</a></td>
-        </tr>
-        <tr><td>&nbsp;</td></tr>
-		<tr><td>LED State &nbsp; : </td><td id="led"></td></tr>
-        <tr><td colspan="2">&nbsp;</td></tr>
-        <tr><td colspan="2"><canvas id="canvas" width="160" height="20"></canvas></td></tr>
-        <tr><td>ADC Value : </td><td id="adc"></td></tr>
-	</table> -->
+	<h1 style="text-align:center;">Advanced Blind</h1>
+	
+	<h3 id="clock"></h3>
 
+	<p>&nbsp;</p>
+	
 	<div>
-	<button>자동모드</button>
-	<button>수동모드</button>
+	<a id="auto" href="/a" target="iframe">
+		<button>자동모드</button>
+	</a>
+	<a id="manual" href="/b" target="iframe">
+		<button>수동모드</button>
+	</a>
 	</div>
 	&nbsp;
 	<div>
@@ -48,7 +39,7 @@
 	</div>
 	&nbsp;
 	
-		
+	<div>	
 		<a id="servo0" href="/servo0" target="iframe">
 			<button>0</button>
 		</a>
@@ -70,21 +61,26 @@
 		<a id="servo180" href="/servo180" target="iframe">
 			<button>180</button>
 		</a>
-
+	</div>	
+	
 	<div style = "float:right;">
-		<button>△</button>
+		<a id="down" href="/down" target="iframe">
+			<button>△</button>
+		</a>
 	</div>
 	<p style = "clear:both;"></p>
 
 	<div style = "float:right;">
-		<button>▽</button>
+		<a id="up" href="/up" target="iframe">
+			<button>▽</button>
+		</a>
 	</div>
 	<p style = "clear:both;">&nbsp;</p>
 
 
 	<table border="0" background="https://img.hankyung.com/photo/202201/01.28639317.1.jpg">
 		<tr>
-        <td><canvas id="canvas" width="630" height="461"></td>
+        <td><canvas id="canvas" width="600" height="450"></td>
 		</tr>
 		
 	</table>
@@ -101,7 +97,7 @@
 	{
 		$(function()
         {
-                var val    = 0;
+            var val    = 0;
             var oldval = 0;
             
 			var socket = io();
@@ -118,10 +114,6 @@
 				// val = parseInt(adcValue);
 				val = parseInt(adcValue);
 				
-						
-				
-			});
-				
 				var canvas = document.getElementById('canvas');
 						
 				if (canvas.getContext){
@@ -130,8 +122,8 @@
 					if( val != oldval ) {
 					//*	// 512 x 20
 						ctx.fillStyle = 'rgb(200, 150, 250)';
-						ctx.fillRect(0,   0,    630, val*3);	//(x, y, 너비, 높이)
-						ctx.clearRect(0, val*3, 630, 300);
+						ctx.fillRect(0,   0,    600, val*2.5);	//(x, y, 너비, 높이)
+						ctx.clearRect(0, val*2.5, 600, 450);
 					//*/
 					/*  //  20 x 512
 						ctx.fillStyle = 'rgb(255, 255, 255)';
@@ -143,7 +135,33 @@
 				}
 			});
 		});
+		
 	});
+	
+	var clockTarget = document.getElementById("clock");
+
+
+	function clock() {
+		var date = new Date();
+		var month = date.getMonth();
+		var clockDate = date.getDate();
+		var day = date.getDay();
+		var week = ['일', '월', '화', '수', '목', '금', '토'];
+		var hours = date.getHours();
+		var minutes = date.getMinutes();
+		var seconds = date.getSeconds();
+		clockTarget .innerText = `${month+1}월 ${clockDate}일 ${week[day]}요일` +
+
+		`${hours < 10 ? `0${hours}` : hours}:${minutes < 10 ? `0${minutes }`  : minutes }:${seconds < 10 ? `0${seconds }`  : seconds }`;
+	}
+	
+	function init() {
+	clock();
+	setInterval(clock, 1000);
+	}
+
+	init();
+	
 	</script>
 
 </body>
