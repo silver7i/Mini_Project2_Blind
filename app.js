@@ -121,9 +121,17 @@ parser.on('data', function(data)
 //		console.log('adc value: ' + adcValue);
 
 	}
-	
-
+	if(b[0] != null){
+		io.emit('input1', b[0]);
+	}
+	if(b[1] !=null){
+		io.emit('input2', b[1]);
+	}
+	if(b[2] !=null){
+		io.emit('input3', b[2]);
+	}
 });
+
 
 app.get('/d1',function(req,res)
 
