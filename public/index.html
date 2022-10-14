@@ -79,16 +79,7 @@
    <button id="auto" onclick="auto()">자동모드</button>
    <button id="manual" onclick="manual()">수동모드</button>
    </div>
-   &nbsp;
-   <div>
-      온도?   <input>
-   </div>
-   &nbsp;
-   <div>
-      습도?   <input>
-   </div>
-   &nbsp;
-   
+   &nbsp;  
    <div>   
       <button id="servo0" onclick="servo_0()">0</button>
       <button id="servo30" onclick="servo_30()">30</button>
@@ -137,9 +128,19 @@
 			
          var socket = io();
         
-		 socket.on('input1', function( element ){
-            $('#input1').text(element);
-			console.log(element);
+		 socket.on('input1', function(data){
+            $('#input1').text(data);
+			console.log(data);
+         });
+		 
+		 socket.on('input2', function(data){
+            $('#input2').text(data);
+			console.log(data);
+         });
+		 
+		 socket.on('input3', function(data){
+            $('#input3').text(data);
+			console.log(data);
          });
 			
          socket.on('servo', function( servoStatus ){
@@ -178,15 +179,6 @@
       
    });
    
-//   function timeSet() {
-//      var x = document.getElementById("cl").value;
-//      document.getElementById("demo").innerHTML = x;
-//   };
-//   document.getElementById('input1').innerHTML = x1;
-   
-//   document.getElementById('input2').innerHTML = x2;
-   
-//   document.getElementById('input3').innerHTML = x3;
    
    $("#OK").click(function(){
       $.ajax({
@@ -245,12 +237,18 @@
    
 
    function del_1() {
+	document.getElementById('input1').innerHTML = '';
+	document.getElementById('input2').innerHTML = '';
+	document.getElementById('input3').innerHTML = '';
       iframe.location.href=("/d1");
    }
    function del_2() {
+	document.getElementById('input2').innerHTML = '';
+	document.getElementById('input3').innerHTML = '';
       iframe.location.href=("/d2");
    }
    function del_3() {
+	document.getElementById('input3').innerHTML = '';
       iframe.location.href=("/d3");
    }
    
