@@ -28,6 +28,7 @@ const path = require('path');
 
 var arr1 = new Array();
 var b = Array(); 
+var c = new Array();
 
 var SerialPort = require('serialport').SerialPort;
 
@@ -37,7 +38,7 @@ var parsers    = SerialPort.parsers;
 
 var sp = new SerialPort( {
 
-  path:'COM4',
+  path:'COM3',
 
   baudRate: 9600
 
@@ -57,10 +58,10 @@ var parser     = sp.pipe(new ReadlineParser({
 
 var port = 3000;
 
-var arr1 = new Array();
 
 var cnt = 0;
-
+var cnt2 = 0;
+var sec;
 sp.pipe(parser);
 
  
@@ -122,16 +123,83 @@ parser.on('data', function(data)
 
 	}
 	if(b[0] != null){
+		if(b[0] == c[0]){
+			if(sec == 0){
+				cnt2++;
+				if(cnt2 == 1){
+					sp.write('9\n\r', function(err){
+
+						if (err) {
+
+							return console.log('Error on write: ', err.message);
+
+						}
+					});
+				}
+			}
+		}
+		if(sec > 30) cnt2=0;
 		io.emit('input1', b[0]);
 	}
 	if(b[1] !=null){
+		if(b[1] == c[0]){
+			if(sec == 0){
+				cnt2++;
+				if(cnt2 == 1){
+					sp.write('9\n\r', function(err){
+
+						if (err) {
+
+							return console.log('Error on write: ', err.message);
+
+						}
+					});
+				}
+			}
+		}
+		if(sec > 30) cnt2=0;
 		io.emit('input2', b[1]);
 	}
 	if(b[2] !=null){
+		if(b[2] == c[0]){
+			if(sec == 0){
+				cnt2++;
+				if(cnt2 == 1){
+					sp.write('9\n\r', function(err){
+
+						if (err) {
+
+							return console.log('Error on write: ', err.message);
+
+						}
+					});
+				}
+			}
+		}
+		if(sec > 30) cnt2=0;
 		io.emit('input3', b[2]);
 	}
 });
 
+
+function clock() {
+	var date = new Date();
+	var clockDate = date.getDate();
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+	var seconds = date.getSeconds();
+	
+	sec = seconds;
+	thisTime = `${hours < 10 ? `0${hours}` : hours}:${minutes < 10 ? `0${minutes }`  : minutes }`;
+	c[0] = thisTime;
+	}
+	
+function init() {
+   clock();
+   setInterval(clock, 1000);
+   }
+   
+   init();
 
 app.get('/d1',function(req,res)
 
