@@ -27,7 +27,7 @@ var io       = require('socket.io')(http);
 const path = require('path');
 
 var arr1 = new Array();
- 
+var b = Array(); 
 
 var SerialPort = require('serialport').SerialPort;
 
@@ -37,7 +37,7 @@ var parsers    = SerialPort.parsers;
 
 var sp = new SerialPort( {
 
-  path:'COM7',
+  path:'COM4',
 
   baudRate: 9600
 
@@ -98,7 +98,7 @@ parser.on('data', function(data)
 
 		io.emit('servo', servoStatus);
 
-		console.log('servoStatus: ' + servoStatus);
+//		console.log('servoStatus: ' + servoStatus);
 
 	}
 	
@@ -108,7 +108,7 @@ parser.on('data', function(data)
 		else if(data.substring(4,5) == "b")	modeStatus = "manual";
 		io.emit('mode', modeStatus);
 
-		console.log('mode Status: ' + modeStatus);
+//		console.log('mode Status: ' + modeStatus);
 
 	}
 	
@@ -118,17 +118,7 @@ parser.on('data', function(data)
 
 		io.emit('adc', adcValue);
 
-		console.log('adc value: ' + adcValue);
-
-	}
-	
-	else if(data.substring(0,8) == "{ time: "){
-
-		timeSet = data.substring(8);
-
-		io.emit('input1', timeSet);
-
-		console.log('input1' + timeSet);
+//		console.log('adc value: ' + adcValue);
 
 	}
 	
@@ -140,7 +130,8 @@ app.get('/d1',function(req,res)
 {
 	if(arr1[0]!=null){
 		arr1.splice(0, 1);
-		console.log(arr1);
+		b.splice(0, 1);
+		console.log(b);
 		cnt--;
 		if(cnt < 0){
 			cnt = 0;
@@ -153,7 +144,8 @@ app.get('/d2',function(req,res)
 {
 	if(arr1[1]!=null){
 		arr1.splice(1, 1);
-		console.log(arr1);
+		b.splice(1, 1);
+		console.log(b);
 		cnt--;
 		if(cnt < 0){
 			cnt = 0;
@@ -166,7 +158,8 @@ app.get('/d3',function(req,res)
 {
 	if(arr1[2]!=null){
 		arr1.splice(2, 1);
-		console.log(arr1);
+		b.splice(2, 1);
+		console.log(b);
 		cnt--;
 		if(cnt < 0){
 			cnt = 0;
@@ -186,7 +179,7 @@ app.get('/a',function(req,res)
 
         }
 
-        console.log('send: auto');
+//        console.log('send: auto');
 
 		res.writeHead(200, {'Content-Type': 'text/plain'});
 
@@ -209,7 +202,7 @@ app.get('/b',function(req,res)
 
         }
 
-        console.log('send: manual');
+//        console.log('send: manual');
 
 		res.writeHead(200, {'Content-Type': 'text/plain'});
 
@@ -232,7 +225,7 @@ app.get('/up',function(req,res)
 
         }
 
-        console.log('send: up');
+//        console.log('send: up');
 
 		res.writeHead(200, {'Content-Type': 'text/plain'});
 
@@ -255,7 +248,7 @@ app.get('/down',function(req,res)
 
         }
 
-        console.log('send: down');
+//        console.log('send: down');
 
 		res.writeHead(200, {'Content-Type': 'text/plain'});
 
@@ -278,7 +271,7 @@ app.get('/servo0',function(req,res)
 
         }
 
-        console.log('send: servo0');
+//        console.log('send: servo0');
 
 		res.writeHead(200, {'Content-Type': 'text/plain'});
 
@@ -301,7 +294,7 @@ app.get('/servo30',function(req,res)
 
         }
 
-        console.log('send: servo30');
+//        console.log('send: servo30');
 
 		res.writeHead(200, {'Content-Type': 'text/plain'});
 
@@ -324,7 +317,7 @@ app.get('/servo60',function(req,res)
 
         }
 
-        console.log('send: servo60');
+//        console.log('send: servo60');
 
 		res.writeHead(200, {'Content-Type': 'text/plain'});
 
@@ -346,7 +339,7 @@ app.get('/servo90',function(req,res)
 
         }
 
-        console.log('send: servo90');
+//        console.log('send: servo90');
 
 		res.writeHead(200, {'Content-Type': 'text/plain'});
 
@@ -368,7 +361,7 @@ app.get('/servo120',function(req,res)
 
         }
 
-        console.log('send: servol20');
+//        console.log('send: servol20');
 
 		res.writeHead(200, {'Content-Type': 'text/plain'});
 
@@ -390,7 +383,7 @@ app.get('/servo150',function(req,res)
 
         }
 
-        console.log('send: servo150');
+//        console.log('send: servo150');
 
 		res.writeHead(200, {'Content-Type': 'text/plain'});
 
@@ -412,7 +405,7 @@ app.get('/servo180',function(req,res)
 
         }
 
-        console.log('send: servo180');
+//        console.log('send: servo180');
 
 		res.writeHead(200, {'Content-Type': 'text/plain'});
 
@@ -428,20 +421,24 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.post("/postTest", function(req, res){
 	console.log(req.body);
 	res.json({ok:true});
-	
 	if(cnt < 3){
 	arr1[cnt] = (req.body);
 	cnt++;
+	b = Array();
+		for( key in arr1){
+			b.push(arr1[key].time);
+		}
+	
 	}
-
-	console.log(arr1);
+//	console.log(arr1);
+	console.log(b);
 });
 
 app.use(express.static(__dirname + '/public'));
 
 app.use(express.json());
 
-app.use(express.urlencoded({extended : false}));
+ app.use(express.urlencoded({extended : false}));
 
 
 http.listen(port, function() {  // server.listen(port, function() {
