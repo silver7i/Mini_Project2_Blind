@@ -36,7 +36,18 @@ void loop() {
     Serial.println(mode);
   }
   
-  if           (mode == 'a')  autoControl();
+  if           (mode == 'a')  {
+    autoControl();
+    unsigned long currentMillis = millis();
+    if (ch2 == '9'){
+      previousMillis = currentMillis;
+      digitalWrite(buzPin,HIGH);
+      ch2 = 0;
+    }
+    if (currentMillis - previousMillis >= 1000){
+      digitalWrite(buzPin,LOW);
+    }
+  }
   
   else if      (mode == 'b'){
     if      (ch == '.') {
