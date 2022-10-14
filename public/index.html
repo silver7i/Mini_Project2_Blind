@@ -131,9 +131,16 @@
         {
             var val    = 0;
             var oldval = 0;
-            
+            var x1;
+			var x2;
+			var x3;
+			
          var socket = io();
         
+		 socket.on('input1', function( element ){
+            $('#input1').text(element);
+			console.log(element);
+         });
 			
          socket.on('servo', function( servoStatus ){
             $('#servo').text(servoStatus);
@@ -175,7 +182,11 @@
 //      var x = document.getElementById("cl").value;
 //      document.getElementById("demo").innerHTML = x;
 //   };
-
+//   document.getElementById('input1').innerHTML = x1;
+   
+//   document.getElementById('input2').innerHTML = x2;
+   
+//   document.getElementById('input3').innerHTML = x3;
    
    $("#OK").click(function(){
       $.ajax({
