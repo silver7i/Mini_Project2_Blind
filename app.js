@@ -1,3 +1,5 @@
+var bodyParser = require('body-parser');
+
 var express  = require('express');
 
 var app      = express();
@@ -24,6 +26,7 @@ var io       = require('socket.io')(http);
 
 const path = require('path');
 
+var arr1 = new Array();
  
 
 var SerialPort = require('serialport').SerialPort;
@@ -54,7 +57,9 @@ var parser     = sp.pipe(new ReadlineParser({
 
 var port = 3000;
 
- 
+var arr1 = new Array();
+
+var cnt = 0;
 
 sp.pipe(parser);
 
@@ -63,12 +68,9 @@ sp.pipe(parser);
 sp.on('open', () => console.log('Port open'));
 
  
-
 parser.on('data', function(data)
 
 {
-
-	console.log(data.toString());
 
 	if(data.substring(0,5) == "servo"){
 
@@ -116,30 +118,61 @@ parser.on('data', function(data)
 
 		io.emit('adc', adcValue);
 
-//		console.log('adc value: ' + adcValue);
+		console.log('adc value: ' + adcValue);
 
 	}
+	
+	else if(data.substring(0,8) == "{ time: "){
+
+		timeSet = data.substring(8);
+
+		io.emit('input1', timeSet);
+
+		console.log('input1' + timeSet);
+
+	}
+	
 
 });
 
-app.get('/timer',function(req,res)
+app.get('/d1',function(req,res)
 
 {
-
-	if (err) {
-
-		return console.log('Error on write: ', err.message);
-
+	if(arr1[0]!=null){
+		arr1.splice(0, 1);
+		console.log(arr1);
+		cnt--;
+		if(cnt < 0){
+			cnt = 0;
+		}
 	}
-
-	console.log('send: Timer set');
-
-	res.writeHead(200, {'Content-Type': 'text/plain'});
-
-	res.end('Timer Set\n');
-	
 });
 
+app.get('/d2',function(req,res)
+
+{
+	if(arr1[1]!=null){
+		arr1.splice(1, 1);
+		console.log(arr1);
+		cnt--;
+		if(cnt < 0){
+			cnt = 0;
+		}
+	}
+});
+
+app.get('/d3',function(req,res)
+
+{
+	if(arr1[2]!=null){
+		arr1.splice(2, 1);
+		console.log(arr1);
+		cnt--;
+		if(cnt < 0){
+			cnt = 0;
+		}
+	}
+});
 
 app.get('/a',function(req,res)
 
@@ -389,11 +422,27 @@ app.get('/servo180',function(req,res)
 
 });
 
- 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
+
+app.post("/postTest", function(req, res){
+	console.log(req.body);
+	res.json({ok:true});
+	
+	if(cnt < 3){
+	arr1[cnt] = (req.body);
+	cnt++;
+	}
+
+	console.log(arr1);
+});
 
 app.use(express.static(__dirname + '/public'));
 
- 
+app.use(express.json());
+
+app.use(express.urlencoded({extended : false}));
+
 
 http.listen(port, function() {  // server.listen(port, function() {
 
