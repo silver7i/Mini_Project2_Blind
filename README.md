@@ -1,4 +1,4 @@
-# project2 - make Advanced Blind
+# mini project2 - make Advanced Blind
 <br>
 
 https://github.com/greattoe/arduino_web_control/tree/main/pot <br>
