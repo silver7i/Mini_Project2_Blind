@@ -6,9 +6,8 @@ https://github.com/greattoe/arduino_web_control/tree/main/pot <br>
 app.js , index.html , arduino 파일 코드를 변형하며 프로젝트를 진행함.<br>
 </p>
 
-<p>
-![project2](https://user-images.githubusercontent.com/77370836/199221432-a544028b-93fd-4f36-9abf-1cdf0675c95d.PNG)
-</p>
-<p>
+
+![project2](https://user-images.githubusercontent.com/77370836/199221432-a544028b-93fd-4f36-9abf-1cdf0675c95d.PNG) <br><br>
+
 https://user-images.githubusercontent.com/77370836/199220832-691d3d85-9ec9-4dcc-b664-a62c0a6ad85a.mp4
-</p>
+
