@@ -1,5 +1,5 @@
 # project2 - make Advanced Blind
-
+<p></p>
 <br>
 https://github.com/greattoe/arduino_web_control/tree/main/pot
 <p>이용진 교수님의 강의 내용을 바탕으로</p>
