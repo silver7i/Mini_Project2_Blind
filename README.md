@@ -45,7 +45,7 @@ https://user-images.githubusercontent.com/77370836/224948094-9a92a100-b316-4970-
   </td>
   </tr>
     <td colspan="2" align=center> 
-        <img src="https://user-images.githubusercontent.com/77370836/224950255-4febc99e-4aa5-4de4-8057-1235710eeee9.png" width="400" height="300">
+        <img src="https://user-images.githubusercontent.com/77370836/224950255-4febc99e-4aa5-4de4-8057-1235710eeee9.png" width="450" height="300">
     </td>
   </tr>
 </table>
