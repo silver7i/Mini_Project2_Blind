@@ -36,7 +36,7 @@
   </tr> 
   <tr>
     <td>
-      <img src="https://user-images.githubusercontent.com/77370836/199221432-a544028b-93fd-4f36-9abf-1cdf0675c95d.PNG" width="750" height="500">
+      <img src="https://user-images.githubusercontent.com/77370836/199221432-a544028b-93fd-4f36-9abf-1cdf0675c95d.PNG" width="700" height="450">
     </td>
     <td>
 
@@ -44,4 +44,9 @@ https://user-images.githubusercontent.com/77370836/224948094-9a92a100-b316-4970-
 
   </td>
   </tr>
+    <td colspan="2" align=center> 
+        <img src="https://user-images.githubusercontent.com/77370836/224950255-4febc99e-4aa5-4de4-8057-1235710eeee9.png" width="400" height="300">
+    </td>
+  </tr>
 </table>
+
