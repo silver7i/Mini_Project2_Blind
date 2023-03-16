@@ -1,5 +1,5 @@
 # mini Project2 - make Advanced Blind + Alam
-# (팀 프로젝트 - 2명)
+    (팀 프로젝트 - 2명)
 
     https://github.com/greattoe/arduino_web_control/tree/main/pot   
     이용진 교수님의 강의 내용을 바탕으로
